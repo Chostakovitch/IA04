@@ -2,6 +2,8 @@ package main;
 
 import java.io.File;
 
+import jade.wrapper.AgentContainer;
+import jade.wrapper.StaleProxyException;
 import jade.core.ProfileException;
 import jade.core.ProfileImpl;
 import jade.core.Runtime;
@@ -16,8 +18,11 @@ public class SudokuBoot {
 		try {
 			//Récupération du chemin absolu du fichier de configuration
 			String config_path = SudokuBoot.class.getResource(File.separator + Constants.AUXILIARY_CONFIG).getPath();
-			Runtime.instance().createAgentContainer(new ProfileImpl(config_path));
-		} catch(ProfileException e) {
+			AgentContainer ac = Runtime.instance().createAgentContainer(new ProfileImpl(config_path));
+			
+			//Lancement des agents
+			ac.createNewAgent("simulation", "agent.SimulationAgent", null);
+		} catch(ProfileException | StaleProxyException e) {
 			System.out.println("Unable to start auxiliary container.");
 			e.printStackTrace();
 		}

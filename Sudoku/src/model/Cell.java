@@ -1,6 +1,10 @@
 package model;
 import java.util.List;
 
+/**
+ * Modèle représentant une cellule d'une grille de Sudoku.
+ * @see Grid
+ */
 public class Cell {
 	private int value;
 	private List<Integer> possibleValues;

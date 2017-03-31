@@ -1,7 +1,9 @@
 package model;
 
-import java.io.IOException;
-
+/**
+ * Modèle pour un message d'abonnement des agents d'analyse.
+ * @see AnalyseAgent
+ */
 public class RegisterModel extends Model {
 	private String name;
 
@@ -17,14 +19,5 @@ public class RegisterModel extends Model {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	@Override
-	public void deserialize(String serial) {
-		RegisterModel model;
-		try {
-			model = getMapper().readValue(serial, this.getClass());
-			this.name = model.name;
-		} catch (IOException e) { }
 	}
 }

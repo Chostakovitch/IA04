@@ -1,9 +1,16 @@
 package model;
 
+/**
+ * Modèle représentant une grille de Sudoku.
+ */
 public class Grid {
 	private static int SIZE = 9;
 	private Cell[][] grid;
 
+	/**
+	 * Constructeur de recopie.
+	 * @param grid Grille de Sudoku à copier.
+	 */
 	public Grid(Cell[][] grid) {
 		if(grid.length != SIZE || grid[0].length != SIZE)
 			throw new IllegalArgumentException("Wrong dimensions of grid");
@@ -14,6 +21,12 @@ public class Grid {
 		this.grid = new Cell[SIZE][SIZE]; 
 	}
 	
+	/**
+	 * Copie générique d'une matrice de cellules.
+	 * @param matrix Matrice de cellules.
+	 * @return Copie de la matrice de celulles.
+	 * @see Cell
+	 */
 	private static Cell[][] copyArray(Cell[][] matrix) {
 		if(matrix == null) return null;
 		int lines = matrix.length;
