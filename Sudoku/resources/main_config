@@ -1,0 +1,4 @@
+main=true
+gui=true
+platform-id=sudoku
+local-port=4567

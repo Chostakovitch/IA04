@@ -1,0 +1,6 @@
+main=false
+gui=false
+container-name=sudoku_container
+host=localhost
+local-port=4568
+port=4567
