@@ -2,7 +2,7 @@ package agent;
 
 import behaviour.SimulationBehaviour;
 import jade.core.Agent;
-import jade.domain.FIPAException;
+import utils.Constants;
 import utils.DFUtils;
 
 /**
@@ -17,11 +17,7 @@ public class SimulationAgent extends Agent{
 		System.out.println(getLocalName() + " started");
 		
 		//Enregistrement via le DF, pour les agents d'analyse
-		try {
-			DFUtils.registerAgent(this, "simulation", "simulation");
-		} catch (FIPAException e) {
-			System.out.println("cannot register " + getLocalName());
-		}
+		DFUtils.registerAgent(this, Constants.SIMULATION_DF, Constants.SIMULATION_DF);
 		
 		//Lancement du behaviour séquentiel contenant les sous-behaviours
 		addBehaviour(new SimulationBehaviour(this));

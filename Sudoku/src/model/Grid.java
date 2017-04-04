@@ -1,10 +1,16 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import utils.Constants;
+
+//TODO TOSTRING
+
 /**
  * Modèle représentant une grille de Sudoku.
  */
 public class Grid {
-	private static int SIZE = 9;
 	private Cell[][] grid;
 
 	/**
@@ -12,13 +18,13 @@ public class Grid {
 	 * @param grid Grille de Sudoku à copier.
 	 */
 	public Grid(Cell[][] grid) {
-		if(grid.length != SIZE || grid[0].length != SIZE)
+		if(grid.length != Constants.GRID_SIZE || grid[0].length != Constants.GRID_SIZE)
 			throw new IllegalArgumentException("Wrong dimensions of grid");
 		this.grid = copyArray(grid);
 	}
 	
 	public Grid() {
-		this.grid = new Cell[SIZE][SIZE]; 
+		this.grid = new Cell[Constants.GRID_SIZE][Constants.GRID_SIZE]; 
 	}
 	
 	/**
@@ -42,5 +48,72 @@ public class Grid {
 
 	public Cell[][] getGrid() {
 		return grid;
+	}
+	
+	public void setGrid(Cell[][] grid) {
+		this.grid = grid;
+	}
+	
+	public List<Cell> getLine(int index) {
+		List<Cell> line = new ArrayList<>();
+		if(index > Constants.GRID_SIZE) return line;
+		for(int i = 0; i < grid.length; ++i) line.add(grid[index][i].copy());
+		return line;
+	}
+	
+	public List<Cell> getColumn(int index) {
+		List<Cell> column = new ArrayList<>();
+		if(index > Constants.GRID_SIZE) return column;
+		for(int i = 0; i < grid.length; ++i) column.add(grid[i][index].copy());
+		return column;
+	}
+	
+	public List<Cell> getSquare(int index) {
+		List<Cell> square = new ArrayList<>();
+		if(index > Constants.GRID_SIZE) return square;
+		//Division entière, pas équivalent à l'identité
+		int lines = ((index - 1) / 3) * 3;
+		int columns = ((index - 1) % 3) * 3;
+		for(int i = lines; i < lines + 3; ++i) {
+			for(int j = columns; j < columns + 3; ++j) {
+				square.add(grid[i][j].copy());
+			}
+		}
+		return square;
+	}
+	
+	public void setLineWithIntersection(int index, List<Cell> line) {
+		if(index > Constants.GRID_SIZE) return;
+		for(int i = 0; i < grid.length; ++i) {
+			Cell newCell = line.get(i);
+			List<Integer> possibleValues = newCell.getPossibleValues();
+			possibleValues.retainAll(grid[index][i].getPossibleValues());
+			grid[index][i] = new Cell(newCell.getValue(), possibleValues);
+		}
+	}
+	
+	public void setColumnWithIntersection(int index, List<Cell> column) {
+		if(index > Constants.GRID_SIZE) return;
+		for(int i = 0; i < grid.length; ++i) {
+			Cell newCell = column.get(i);
+			List<Integer> possibleValues = newCell.getPossibleValues();
+			possibleValues.retainAll(grid[index][i].getPossibleValues());
+			grid[i][index] = new Cell(newCell.getValue(), possibleValues);
+		}
+	}
+	
+	public void setSquareWithIntersection(int index, List<Cell> square) {
+		if(index > Constants.GRID_SIZE) return;
+		//Division entière, pas équivalent à l'identité
+		int lines = ((index - 1) / 3) * 3;
+		int columns = ((index - 1) % 3) * 3;
+		for(int i = lines; i < lines + 3; ++i) {
+			for(int j = columns; j < columns + 3; ++j) {
+				Cell newCell = square.get((i - lines) * 3 + (j - columns)).copy();
+				List<Integer> possibleValues = newCell.getPossibleValues();
+				possibleValues.retainAll(grid[index][i].getPossibleValues());
+				grid[i][j] = new Cell(newCell.getValue(), possibleValues);
+			}
+		}
 	}
 }

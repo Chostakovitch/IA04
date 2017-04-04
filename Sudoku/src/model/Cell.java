@@ -1,5 +1,8 @@
 package model;
+import java.util.Arrays;
 import java.util.List;
+
+import utils.Constants;
 
 /**
  * Modèle représentant une cellule d'une grille de Sudoku.
@@ -8,6 +11,7 @@ import java.util.List;
 public class Cell {
 	private int value;
 	private List<Integer> possibleValues;
+	private static final Integer[] initialPossibleValues = new Integer[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 	
 	public Cell(){
 		this.value = 0;
@@ -15,6 +19,7 @@ public class Cell {
 
 	public Cell(int value) {
 		this.value = value;
+		this.possibleValues = Arrays.asList(initialPossibleValues.clone());
 	}
 	
 	public Cell(int value, List<Integer> possibleValues) {
@@ -34,6 +39,10 @@ public class Cell {
 		return possibleValues;
 	}
 	
+	public void setPossibleValues(List<Integer> possibleValues) {
+		this.possibleValues = possibleValues;
+	}
+
 	public Cell copy() {
 		return new Cell(getValue());
 	}
