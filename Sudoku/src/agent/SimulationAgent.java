@@ -14,7 +14,7 @@ public class SimulationAgent extends Agent{
 
 	@Override
 	public void setup() {
-		System.out.println(getLocalName() + " started");
+		System.out.println("Agent " + getLocalName() + " started");
 		
 		//Enregistrement via le DF, pour les agents d'analyse
 		DFUtils.registerAgent(this, Constants.SIMULATION_DF, Constants.SIMULATION_DF);

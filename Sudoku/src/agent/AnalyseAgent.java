@@ -1,5 +1,6 @@
 package agent;
 
+import behaviour.AnalyseBehaviour;
 import behaviour.EnvironmentBehaviour;
 import jade.core.Agent;
 import utils.Constants;
@@ -11,9 +12,9 @@ private static final long serialVersionUID = 1L;
 	@Override
 	public void setup() {
 		System.out.println("Agent " + getLocalName() + " started.");
-	
-		DFUtils.registerAgent(this, Constants.ANALYSE_DF, Constants.ANALYSE_DF);
+		System.out.println(getLocalName());
+		DFUtils.registerAgent(this, Constants.ANALYSE_DF, getLocalName());
 		
-		addBehaviour();
+		addBehaviour(new AnalyseBehaviour(this));
 	}
 }

@@ -58,7 +58,7 @@ public class SimulationBehaviour extends SequentialBehaviour{
 			else {
 				//Un agent s'est enregistré, on le référence
 				RegisterModel model = Model.deserialize(answer.getContent(), RegisterModel.class);
-				agents.put(counter--, model);
+				agents.put(--counter, model);
 			}
 		}
 

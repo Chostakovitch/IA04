@@ -54,6 +54,7 @@ public class EnvironmentBehaviour extends SequentialBehaviour {
 				case ACLMessage.INFORM:
 					AnalyseModel result = Model.deserialize(message.getContent(), AnalyseModel.class);
 					setCellListFromIndex(result.getCells(), Integer.parseInt(message.getConversationId()));
+					break;
 				}
 			}
 		}
@@ -64,15 +65,15 @@ public class EnvironmentBehaviour extends SequentialBehaviour {
 		}
 		
 		private List<Cell> getCellListFromIndex(int index) {
-			if(index <= 9) return grid.getLine(index);
-			else if(index <= 18) return grid.getColumn(index);
-			return grid.getSquare(index);
+			if(index < 9) return grid.getLine(index % Constants.GRID_SIZE);
+			else if(index < 18) return grid.getColumn(index % Constants.GRID_SIZE);
+			return grid.getSquare(index % Constants.GRID_SIZE);
 		}
 		
 		private void setCellListFromIndex(List<Cell> cells, int index) {
-			if(index <= 9) grid.setLineWithIntersection(index, cells);
-			else if(index <= 18) grid.setColumnWithIntersection(index, cells);
-			grid.setSquareWithIntersection(index, cells);
+			if(index < 9) grid.setLineWithIntersection(index % Constants.GRID_SIZE, cells);
+			else if(index < 18) grid.setColumnWithIntersection(index % Constants.GRID_SIZE, cells);
+			grid.setSquareWithIntersection(index % Constants.GRID_SIZE, cells);
 		}
 		
 		private boolean isGridResolved() {
@@ -102,8 +103,8 @@ public class EnvironmentBehaviour extends SequentialBehaviour {
 	}
 
 	/**
-	 * Génère une grille avec la liste des possibles initialisée par identité
-	 * à partir d'un tableau linéaire d'entiers.
+	 * GÃ©nÃ¨re une grille avec la liste des possibles initialisÃ©e par identitÃ©
+	 * Ã  partir d'un tableau linÃ©aire d'entiers.
 	 * @param cells Tableau d'entiers
 	 * @return Grille de Sudoku
 	 */

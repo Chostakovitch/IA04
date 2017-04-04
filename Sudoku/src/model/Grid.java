@@ -72,8 +72,8 @@ public class Grid {
 		List<Cell> square = new ArrayList<>();
 		if(index > Constants.GRID_SIZE) return square;
 		//Division entière, pas équivalent à l'identité
-		int lines = ((index - 1) / 3) * 3;
-		int columns = ((index - 1) % 3) * 3;
+		int lines = (index / 3) * 3;
+		int columns = (index % 3) * 3;
 		for(int i = lines; i < lines + 3; ++i) {
 			for(int j = columns; j < columns + 3; ++j) {
 				square.add(grid[i][j].copy());
@@ -86,9 +86,8 @@ public class Grid {
 		if(index > Constants.GRID_SIZE) return;
 		for(int i = 0; i < grid.length; ++i) {
 			Cell newCell = line.get(i);
-			List<Integer> possibleValues = newCell.getPossibleValues();
-			possibleValues.retainAll(grid[index][i].getPossibleValues());
-			grid[index][i] = new Cell(newCell.getValue(), possibleValues);
+			newCell.getPossibleValues().retainAll(grid[index][i].getPossibleValues());
+			grid[index][i] = newCell;
 		}
 	}
 	
@@ -96,23 +95,21 @@ public class Grid {
 		if(index > Constants.GRID_SIZE) return;
 		for(int i = 0; i < grid.length; ++i) {
 			Cell newCell = column.get(i);
-			List<Integer> possibleValues = newCell.getPossibleValues();
-			possibleValues.retainAll(grid[index][i].getPossibleValues());
-			grid[i][index] = new Cell(newCell.getValue(), possibleValues);
+			newCell.getPossibleValues().retainAll(grid[index][i].getPossibleValues());
+			grid[i][index] = newCell;
 		}
 	}
 	
 	public void setSquareWithIntersection(int index, List<Cell> square) {
 		if(index > Constants.GRID_SIZE) return;
 		//Division entière, pas équivalent à l'identité
-		int lines = ((index - 1) / 3) * 3;
-		int columns = ((index - 1) % 3) * 3;
+		int lines = (index / 3) * 3;
+		int columns = (index % 3) * 3;
 		for(int i = lines; i < lines + 3; ++i) {
 			for(int j = columns; j < columns + 3; ++j) {
 				Cell newCell = square.get((i - lines) * 3 + (j - columns)).copy();
-				List<Integer> possibleValues = newCell.getPossibleValues();
-				possibleValues.retainAll(grid[index][i].getPossibleValues());
-				grid[i][j] = new Cell(newCell.getValue(), possibleValues);
+				newCell.getPossibleValues().retainAll(grid[index][i].getPossibleValues());
+				grid[i][j] = newCell;
 			}
 		}
 	}
