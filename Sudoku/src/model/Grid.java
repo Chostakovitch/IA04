@@ -54,6 +54,11 @@ public class Grid {
 		this.grid = grid;
 	}
 	
+	/**
+	 * Accesseur pour une ligne
+	 * @param index Indice de la ligne
+	 * @return Liste de cellules
+	 */
 	public List<Cell> getLine(int index) {
 		List<Cell> line = new ArrayList<>();
 		if(index > Constants.GRID_SIZE) return line;
@@ -61,6 +66,11 @@ public class Grid {
 		return line;
 	}
 	
+	/**
+	 * Accesseur pour une colonne
+	 * @param index Indice de la colonne
+	 * @return Liste de cellules
+	 */
 	public List<Cell> getColumn(int index) {
 		List<Cell> column = new ArrayList<>();
 		if(index > Constants.GRID_SIZE) return column;
@@ -68,6 +78,11 @@ public class Grid {
 		return column;
 	}
 	
+	/**
+	 * Accesseur pour un carré
+	 * @param index Indice du carré
+	 * @return Liste de cellules
+	 */
 	public List<Cell> getSquare(int index) {
 		List<Cell> square = new ArrayList<>();
 		if(index > Constants.GRID_SIZE) return square;
@@ -82,6 +97,15 @@ public class Grid {
 		return square;
 	}
 	
+	/**
+	 * Modificateur d'une ligne par intersection.
+	 * Chaque cellule est mise à jour avec la nouvelle valeur 
+	 * passée en paramètre et l'ancienne liste des valeurs possibles
+	 * est intersectée avec la nouvelle (pour garantir la cohérence 
+	 * entre les tâches indépendantes de calcul).
+	 * @param index Indice de la ligne.
+	 * @param line Liste de cellules.
+	 */
 	public void setLineWithIntersection(int index, List<Cell> line) {
 		if(index > Constants.GRID_SIZE) return;
 		for(int i = 0; i < grid.length; ++i) {
@@ -91,6 +115,15 @@ public class Grid {
 		}
 	}
 	
+	/**
+	 * Modificateur d'une colonne par intersection.
+	 * Chaque cellule est mise à jour avec la nouvelle valeur 
+	 * passée en paramètre et l'ancienne liste des valeurs possibles
+	 * est intersectée avec la nouvelle (pour garantir la cohérence 
+	 * entre les tâches indépendantes de calcul).
+	 * @param index Indice de la colonne.
+	 * @param line Liste de cellules.
+	 */
 	public void setColumnWithIntersection(int index, List<Cell> column) {
 		if(index > Constants.GRID_SIZE) return;
 		for(int i = 0; i < grid.length; ++i) {
@@ -100,6 +133,15 @@ public class Grid {
 		}
 	}
 	
+	/**
+	 * Modificateur d'un carré par intersection.
+	 * Chaque cellule est mise à jour avec la nouvelle valeur 
+	 * passée en paramètre et l'ancienne liste des valeurs possibles
+	 * est intersectée avec la nouvelle (pour garantir la cohérence 
+	 * entre les tâches indépendantes de calcul).
+	 * @param index Indice du carré.
+	 * @param line Liste de cellules.
+	 */
 	public void setSquareWithIntersection(int index, List<Cell> square) {
 		if(index > Constants.GRID_SIZE) return;
 		//Division entière, pas équivalent à l'identité

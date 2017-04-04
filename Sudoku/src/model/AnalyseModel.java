@@ -3,6 +3,10 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Modèle pour communiquer entre environnement 
+ * et analyse contenant une liste de cellules.
+ */
 public class AnalyseModel extends Model {
 	private List<Cell> cells;
 	

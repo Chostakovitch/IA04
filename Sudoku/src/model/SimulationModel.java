@@ -1,5 +1,11 @@
 package model;
 
+/**
+ * Modèle pour les ordres donnés par la simulation
+ * à l'environnement. Encapsule un modèle d'enregistrement
+ * contenant déjà le nom de l'agent et rajoute l'indice de
+ * l'entité à traiter.
+ */
 public class SimulationModel extends Model {
 	private RegisterModel agent;
 	private int index;
