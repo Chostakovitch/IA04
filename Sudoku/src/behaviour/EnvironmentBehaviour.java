@@ -1,16 +1,12 @@
 package behaviour;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.Behaviour;
 import jade.core.behaviours.OneShotBehaviour;
 import jade.core.behaviours.SequentialBehaviour;
 import jade.lang.acl.ACLMessage;
-import jade.lang.acl.MessageTemplate;
-import jade.proto.AchieveREInitiator;
 import model.AnalyseModel;
 import model.Cell;
 import model.Grid;

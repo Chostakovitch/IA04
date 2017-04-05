@@ -1,7 +1,6 @@
 package agent;
 
 import behaviour.AnalyseBehaviour;
-import behaviour.EnvironmentBehaviour;
 import jade.core.Agent;
 import utils.Constants;
 import utils.DFUtils;

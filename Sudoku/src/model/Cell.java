@@ -2,8 +2,6 @@ package model;
 import java.util.Arrays;
 import java.util.List;
 
-import utils.Constants;
-
 /**
  * Modèle représentant une cellule d'une grille de Sudoku.
  * @see Grid
