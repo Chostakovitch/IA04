@@ -58,6 +58,8 @@ public class EnvironmentBehaviour extends SequentialBehaviour {
 					//Indexé à partir de 0!
 					int index = model.getIndex();
 					
+					System.out.println("Environment : received request from simulation for analyse " + index);
+					
 					//Récupération des cellules correspondant à la convention
 					request.setContent(new AnalyseModel(getCellListFromIndex(index)).serialize());
 					

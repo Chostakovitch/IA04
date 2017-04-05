@@ -17,7 +17,7 @@ public class Constants {
 	public static Integer GRID_SIZE = 9;
 	
 	/**
-	 * Fréquence d'envoi des demandes à l'agent d'environnement
+	 * Frï¿½quence d'envoi des demandes ï¿½ l'agent d'environnement
 	 */
 	public static long SIMULATION_FREQUENCY = 5000;
 	

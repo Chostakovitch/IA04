@@ -21,8 +21,8 @@ public class SudokuBoot {
 			ContainerController cc = Runtime.instance().createAgentContainer(new ProfileImpl(config_path));
 			
 			//Lancement des agents
-			cc.createNewAgent("simulation", "agent.SimulationAgent", null).start();;
-			cc.createNewAgent("environment", "agent.EnvironmentAgent", null).start();;
+			cc.createNewAgent("environment", "agent.EnvironmentAgent", null).start();
+			cc.createNewAgent("simulation", "agent.SimulationAgent", null).start();
 			for(int i = 0; i < Constants.ANALYSE_AGENTS_COUNT; ++i) cc.createNewAgent("analyse" + i, "agent.AnalyseAgent", null).start();
 		} catch(ProfileException | StaleProxyException e) {
 			System.out.println("Unable to start auxiliary container.");

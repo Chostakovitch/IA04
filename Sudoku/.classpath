@@ -3,9 +3,9 @@
 	<classpathentry kind="src" path="resources"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
-	<classpathentry kind="lib" path="/home/chosty/Documents/IA04/Sudoku/lib/jackson-core-2.8.1.jar"/>
-	<classpathentry kind="lib" path="/home/chosty/Documents/IA04/Sudoku/lib/jade4.3.3.jar"/>
-	<classpathentry kind="lib" path="/home/chosty/Documents/IA04/Sudoku/lib/jackson-databind-2.8.1.jar"/>
-	<classpathentry kind="lib" path="/home/chosty/Documents/IA04/Sudoku/lib/jackson-annotations-2.8.0.jar"/>
+	<classpathentry kind="lib" path="/home/Documents/Git/IA04/Sudoku/lib/jade4.3.3.jar"/>
+	<classpathentry kind="lib" path="/home/Documents/Git/IA04/Sudoku/lib/jackson-databind-2.8.1.jar"/>
+	<classpathentry kind="lib" path="/home/Documents/Git/IA04/Sudoku/lib/jackson-core-2.8.1.jar"/>
+	<classpathentry kind="lib" path="/home/Documents/Git/IA04/Sudoku/lib/jackson-annotations-2.8.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

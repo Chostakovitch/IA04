@@ -110,6 +110,9 @@ public class Grid {
 		if(index > Constants.GRID_SIZE) return;
 		for(int i = 0; i < grid.length; ++i) {
 			Cell newCell = line.get(i);
+			//On se prémunit d'une remise à zéro de la cellule
+			if(newCell.getValue() == 0) newCell.setValue(grid[index][i].getValue());
+			//Intersection
 			newCell.getPossibleValues().retainAll(grid[index][i].getPossibleValues());
 			grid[index][i] = newCell;
 		}
@@ -128,6 +131,9 @@ public class Grid {
 		if(index > Constants.GRID_SIZE) return;
 		for(int i = 0; i < grid.length; ++i) {
 			Cell newCell = column.get(i);
+			//On se prémunit d'une remise à zéro de la cellule
+			if(newCell.getValue() == 0) newCell.setValue(grid[i][index].getValue());
+			//Intersection
 			newCell.getPossibleValues().retainAll(grid[index][i].getPossibleValues());
 			grid[i][index] = newCell;
 		}
@@ -150,7 +156,10 @@ public class Grid {
 		for(int i = lines; i < lines + 3; ++i) {
 			for(int j = columns; j < columns + 3; ++j) {
 				Cell newCell = square.get((i - lines) * 3 + (j - columns)).copy();
-				newCell.getPossibleValues().retainAll(grid[index][i].getPossibleValues());
+				//On se prémunit d'une remise à zéro de la cellule
+				if(newCell.getValue() == 0) newCell.setValue(grid[i][j].getValue());
+				//Intersection
+				newCell.getPossibleValues().retainAll(grid[i][j].getPossibleValues());
 				grid[i][j] = newCell;
 			}
 		}

@@ -1,6 +1,8 @@
 package model;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Modèle représentant une cellule d'une grille de Sudoku.
@@ -9,15 +11,24 @@ import java.util.List;
 public class Cell {
 	private int value;
 	private List<Integer> possibleValues;
-	private static final Integer[] initialPossibleValues = new Integer[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 	
+	/**
+	 * Constructeur par défaut, pour une cellule indéterminée.
+	 * La liste des valeurs possibles est maximale.
+	 */
 	public Cell(){
-		this.value = 0;
+		this(0);
 	}
 
+	/**
+	 * Constructeur pour une cellule déterminée.
+	 * La liste des valeurs possibles est vide.
+	 * @param value Valeur de la cellule
+	 */
 	public Cell(int value) {
 		this.value = value;
-		this.possibleValues = Arrays.asList(initialPossibleValues.clone());
+		this.possibleValues = new ArrayList<>();
+		if(value == 0) for(int i = 1; i <= 9; ++i) possibleValues.add(i);
 	}
 	
 	public Cell(int value, List<Integer> possibleValues) {
@@ -42,6 +53,6 @@ public class Cell {
 	}
 
 	public Cell copy() {
-		return new Cell(getValue());
+		return new Cell(getValue(), new ArrayList<Integer>(getPossibleValues()));
 	}
 }

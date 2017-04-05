@@ -8,6 +8,7 @@ import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.Behaviour;
 import jade.core.behaviours.OneShotBehaviour;
+import jade.core.behaviours.ParallelBehaviour;
 import jade.core.behaviours.SequentialBehaviour;
 import jade.core.behaviours.TickerBehaviour;
 import jade.lang.acl.ACLMessage;
@@ -19,10 +20,11 @@ import utils.Constants;
 import utils.DFUtils;
 
 /**
- * Ce behaviour de type séquentiel est composé de trois sous-behaviours :
+ * Ce behaviour de type séquentiel est composé de deux sous-behaviours :
  * - Attente de l'enregistrement des agents d'analyse ;
- * - Lancement de la simulation en arrière-plan ;
- * - Attente de la résolution du Sudoku notifiée par un agent externe (environnement).
+ * - Behaviour parallèle qui contient lui-même deux sous-behaviours :
+ * 		- Lancement de la simulation en arrière-plan ;
+ * 		- Attente de la résolution du Sudoku notifiée par un agent externe (environnement).
  */
 public class SimulationBehaviour extends SequentialBehaviour{
 	private static final long serialVersionUID = 1L;
@@ -32,9 +34,23 @@ public class SimulationBehaviour extends SequentialBehaviour{
 		super(agent);
 		agents = new HashMap<>();
 		addSubBehaviour(new WaitRegistrationBehaviour(agent));
-		TickerBehaviour simulation = new PerformSimulationBehaviour(agent, Constants.SIMULATION_FREQUENCY);
-		addSubBehaviour(simulation);
-		addSubBehaviour(new WaitEnvironmentBehaviour(agent, simulation));
+		addSubBehaviour(new PerformSimulationWrapper(ParallelBehaviour.WHEN_ALL));
+	}
+	
+	/**
+	 * Behaviour parallèle encapsulant les demandes envoyées à l'environnement
+	 * ainsi que l'attente de la notification de l'environnement qui stoppe alors
+	 * les demandes.
+	 */
+	public class PerformSimulationWrapper extends ParallelBehaviour {
+		private static final long serialVersionUID = 1L;
+		
+		public PerformSimulationWrapper(int param) {
+			super(param);
+			TickerBehaviour simulation = new PerformSimulationBehaviour(getAgent(), Constants.SIMULATION_FREQUENCY);
+			this.addSubBehaviour(simulation);
+			this.addSubBehaviour(new WaitEnvironmentBehaviour(getAgent(), simulation));
+		}
 	}
 	
 	/**
@@ -83,13 +99,13 @@ public class SimulationBehaviour extends SequentialBehaviour{
 		
 		public PerformSimulationBehaviour(Agent a, long period) {
 			super(a, period);
-			environment = DFUtils.findFirstAgent(a, Constants.ENVIRONMENT_DF, Constants.ENVIRONMENT_DF);
 		}
 
 		private static final long serialVersionUID = 1L;
 
 		@Override
 		public void onTick() {
+			environment = DFUtils.findFirstAgent(getAgent(), Constants.ENVIRONMENT_DF, Constants.ENVIRONMENT_DF);
 			//Envoi des demandes aux 27 agents
 			for(Entry<Integer, RegisterModel> mapEntry : agents.entrySet()) {
 				ACLMessage message = new ACLMessage(ACLMessage.REQUEST);
@@ -104,39 +120,42 @@ public class SimulationBehaviour extends SequentialBehaviour{
 	 * Behaviour qui attend la notification de l'agent d'environnement
 	 * pour terminer la simulation.
 	 */
-	public class WaitEnvironmentBehaviour extends OneShotBehaviour {
+	public class WaitEnvironmentBehaviour extends Behaviour {
 		private static final long serialVersionUID = 1L;
+		
+		/**
+		 * Indique si la simulation est terminée, i.e. si le Sudoku est résolu
+		 */
+		private boolean simulationEnded;
 		
 		/**
 		 * Behaviour de simulation à terminer une fois la notification reçue
 		 */
 		private TickerBehaviour simulation;
-		
-		/**
-		 * Référence vers l'environnement
-		 */
-		private AID environment;
 
 		public WaitEnvironmentBehaviour(Agent a, TickerBehaviour simulation) {
 			super(a);
 			this.simulation = simulation;
-			this.environment = DFUtils.findFirstAgent(getAgent(), Constants.ENVIRONMENT_DF, Constants.ENVIRONMENT_DF);
+			this.simulationEnded = false;
 		}
 
 		@Override
 		public void action() {
-			//On s'assure de matcher un message d'information => depuis <= l'agent d'environnement
-			MessageTemplate mt = MessageTemplate.and( 
-					MessageTemplate.MatchPerformative(ACLMessage.INFORM),
-					MessageTemplate.MatchSender(environment)
-				);
+			MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.INFORM);
 					
 			ACLMessage notif = getAgent().receive(mt);
 			if(notif == null) block();
 			else {
 				//On arrête la simulation
+				System.out.println("Simulation ended, grid resolved!");
 				simulation.stop();
+				simulationEnded = true;
 			}
+		}
+
+		@Override
+		public boolean done() {
+			return simulationEnded;
 		}
 	}
 }
