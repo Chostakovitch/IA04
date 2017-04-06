@@ -1,8 +1,6 @@
 package model;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Modèle représentant une cellule d'une grille de Sudoku.

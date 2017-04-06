@@ -5,8 +5,6 @@ import java.util.List;
 
 import utils.Constants;
 
-//TODO TOSTRING
-
 /**
  * Modèle représentant une grille de Sudoku.
  */

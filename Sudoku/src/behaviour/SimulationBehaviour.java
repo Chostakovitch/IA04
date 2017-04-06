@@ -7,7 +7,6 @@ import java.util.Map.Entry;
 import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.Behaviour;
-import jade.core.behaviours.OneShotBehaviour;
 import jade.core.behaviours.ParallelBehaviour;
 import jade.core.behaviours.SequentialBehaviour;
 import jade.core.behaviours.TickerBehaviour;
@@ -150,8 +149,6 @@ public class SimulationBehaviour extends SequentialBehaviour{
 				System.out.println("Simulation ended, grid resolved!");
 				simulation.stop();
 				simulationEnded = true;
-				//TODO tester les autres grilles
-				//TODO rapport
 			}
 		}
 
