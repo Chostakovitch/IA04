@@ -29,6 +29,9 @@ public class EnvironmentBehaviour extends SequentialBehaviour {
 	public EnvironmentBehaviour(Agent a, Integer[] cells) {
 		super(a);
 		this.grid = generateGridFromArray(cells);
+		
+		System.out.println("État de la grille avant résolution : ");
+		System.out.println(grid);
 		addSubBehaviour(new AdvanceSimulationBehaviour());
 		addSubBehaviour(new SendEndNotificationBehaviour());
 	}
@@ -57,8 +60,6 @@ public class EnvironmentBehaviour extends SequentialBehaviour {
 					
 					//Indexé à partir de 0!
 					int index = model.getIndex();
-					
-					System.out.println("Environment : received request from simulation for analyse " + index);
 					
 					//Récupération des cellules correspondant à la convention
 					request.setContent(new AnalyseModel(getCellListFromIndex(index)).serialize());
@@ -136,6 +137,8 @@ public class EnvironmentBehaviour extends SequentialBehaviour {
 
 		@Override
 		public void action() {
+			System.out.println("État de la grille après résolution : ");
+			System.out.println(grid);
 			ACLMessage message = new ACLMessage(ACLMessage.INFORM);
 			message.addReceiver(DFUtils.findFirstAgent(getAgent(), Constants.SIMULATION_DF, Constants.SIMULATION_DF));
 			getAgent().send(message);

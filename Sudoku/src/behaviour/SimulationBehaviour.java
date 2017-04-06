@@ -150,6 +150,8 @@ public class SimulationBehaviour extends SequentialBehaviour{
 				System.out.println("Simulation ended, grid resolved!");
 				simulation.stop();
 				simulationEnded = true;
+				//TODO tester les autres grilles
+				//TODO rapport
 			}
 		}
 

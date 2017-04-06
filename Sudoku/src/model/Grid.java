@@ -164,4 +164,25 @@ public class Grid {
 			}
 		}
 	}
+	
+	@Override
+	public String toString() {
+		StringBuilder hSepBuild = new StringBuilder();
+		for(int i = 0; i < grid.length; ++i) {
+			hSepBuild.append("+---");
+		}
+		hSepBuild.append("+\n");
+		String hSep = hSepBuild.toString();
+		
+		StringBuilder finalBuilder = new StringBuilder();
+		for(int i = 0; i < grid.length; ++i) {
+			finalBuilder.append(hSep);
+			for(int j = 0; j < grid[i].length; ++j) {
+				finalBuilder.append("| " + grid[i][j].getValue() + " ");
+			}
+			finalBuilder.append("|\n");
+		}
+		finalBuilder.append(hSep);
+		return finalBuilder.toString();
+	}
 }
