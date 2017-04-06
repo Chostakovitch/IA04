@@ -56,6 +56,7 @@ public class AnalyseBehaviour extends SequentialBehaviour {
 	 * Behaviour chargé de l'implémentation des algorithmes de résolution
 	 * du Sudoku. Travaille sur des cellules représentant indifféremment une ligne,
 	 * une colonne ou un carré dans la grille. Répond à l'agent d'environnement.
+	 * Effectue un unique changement par appel.
 	 */
 	class ResolutionBehaviour extends CyclicBehaviour {
 		private static final long serialVersionUID = 1L;
@@ -67,16 +68,8 @@ public class AnalyseBehaviour extends SequentialBehaviour {
 			if(message == null) block();
 			else {
 				AnalyseModel model = Model.deserialize(message.getContent(), AnalyseModel.class);
-				
-				/* Résolution effective, modification des cellules
-				 * En tant que les modifications locales peuvent modifier
-				 * les listes d'autres cellules (e.g. algo. 2), on choisit
-				 * de relancer les algorithmes tant qu'il y a une nouvelle
-				 * modification à inférer. */
-				boolean changed = false;
-				do {
-					changed = performResolution(model.getCells());
-				} while(changed);
+			
+				performResolution(model.getCells());
 				
 				ACLMessage answer = message.createReply();
 				answer.setPerformative(ACLMessage.INFORM);

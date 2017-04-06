@@ -74,6 +74,7 @@ public class EnvironmentBehaviour extends SequentialBehaviour {
 				case ACLMessage.INFORM:
 					AnalyseModel result = Model.deserialize(message.getContent(), AnalyseModel.class);
 					setCellListFromIndex(result.getCells(), Integer.parseInt(message.getConversationId()));
+					//System.out.println(grid.toString());
 					break;
 				}
 			}
@@ -109,7 +110,7 @@ public class EnvironmentBehaviour extends SequentialBehaviour {
 		private void setCellListFromIndex(List<Cell> cells, int index) {
 			if(index < Constants.GRID_SIZE) grid.setLineWithIntersection(index % Constants.GRID_SIZE, cells);
 			else if(index < Constants.GRID_SIZE * 2) grid.setColumnWithIntersection(index % Constants.GRID_SIZE, cells);
-			grid.setSquareWithIntersection(index % Constants.GRID_SIZE, cells);
+			else grid.setSquareWithIntersection(index % Constants.GRID_SIZE, cells);
 		}
 		
 		/**

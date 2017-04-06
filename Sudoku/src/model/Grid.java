@@ -134,7 +134,7 @@ public class Grid {
 			//On se prémunit d'une remise à zéro de la cellule
 			if(newCell.getValue() == 0) newCell.setValue(grid[i][index].getValue());
 			//Intersection
-			newCell.getPossibleValues().retainAll(grid[index][i].getPossibleValues());
+			newCell.getPossibleValues().retainAll(grid[i][index].getPossibleValues());
 			grid[i][index] = newCell;
 		}
 	}
