@@ -20,6 +20,6 @@ public class EnvironmentAgent extends Agent {
 		DFUtils.registerAgent(this, Constants.ENVIRONMENT_DF, Constants.ENVIRONMENT_DF);
 		
 		//Behaviour séquentiel
-		addBehaviour(new EnvironmentBehaviour(this, Constants.GRID_5));
+		addBehaviour(new EnvironmentBehaviour(this, Constants.GRIDS[4]));
 	}
 }
