@@ -16,7 +16,6 @@ import utils.Constants;
 public class SudokuBoot {
 	public static void main(String[] args) {
 		try {
-			//TODO Lancer la résolution depuis la console Jade
 			//Récupération du chemin absolu du fichier de configuration
 			String config_path = SudokuBoot.class.getResource(File.separator + Constants.AUXILIARY_CONFIG).getPath();
 			ContainerController cc = Runtime.instance().createAgentContainer(new ProfileImpl(config_path));
