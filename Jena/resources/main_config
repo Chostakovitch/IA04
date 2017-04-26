@@ -1,0 +1,4 @@
+main=true
+gui=true
+platform-id=jena
+local-port=4567

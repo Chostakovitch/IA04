@@ -1,0 +1,13 @@
+/agent/
+/foaf.n3
+/main/
+/main_config
+/q1.sparql
+/q2.sparql
+/q3.sparql
+/q4.sparql
+/secondary_config
+/turtle.n3
+/utils/
+/q5.sparql
+/q6.sparql

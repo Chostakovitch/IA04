@@ -1,0 +1,46 @@
+# imports: file:/home/chosty/Documents/IA04/Jena/resources/foaf.n3
+
+@prefix td5: <http://www.utc.fr/>.
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix geo: <http://linkedgeodata.org/triplify/> .
+
+# France : node1363947712
+# Honduras : node424297629
+# Zambia : node432425123
+
+td5:cheval a foaf:Thing; 
+	rdfs:label "Cheval"@fr .
+	
+td5:chien a foaf:Thing; 
+	rdfs:label "Chien"@fr .
+
+td5:chat a foaf:Thing; 
+	rdfs:label "Chat"@fr .
+
+td5:Bob a foaf:Person ;
+	foaf:givenname "Bob"^^xsd:string ; 
+	foaf:topic_interest td5:cheval ;
+	foaf:topic_interest geo:node432425123 ;
+	foaf:knows td5:Alice .
+
+td5:Alice a foaf:Person ;
+	foaf:givenname "Alice"^^xsd:string ; 
+	foaf:topic_interest geo:node424297629 ;
+	foaf:topic_interest td5:chat .
+
+td5:Pierre a foaf:Person ;
+	foaf:givenname "Pierre"^^xsd:string ; 
+	foaf:topic_interest td5:chien ;
+	foaf:topic_interest geo:node1363947712 .
+	
+td5:Paul a foaf:Person ;
+	foaf:givenname "Paul"^^xsd:string ;
+	foaf:knows td5:Pierre ;
+	foaf:topic_interest geo:node1363947712 .
+	
+td5:Jacques a foaf:Person ;
+	foaf:givenname "Jacques"^^xsd:string ; 
+	foaf:knows td5:Paul ;
+	foaf:topic_interest geo:node424297629 .
